@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}About - Skin Disease Predictor{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="display-4 mb-4 text-center">About Our Service</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h4 mb-3">How It Works</h2>
+                <p>Our AI-powered skin disease prediction system uses advanced deep learning technology to analyze images of skin conditions. The system is built on MobileNetV2, a lightweight but powerful neural network architecture that can efficiently process images while maintaining high accuracy.</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Important Notice</h2>
+                <div class="alert alert-warning">
+                    <p class="mb-0">This tool is for educational and preliminary screening purposes only. It is not intended to replace professional medical diagnosis. Always consult with a qualified healthcare provider for proper diagnosis and treatment of skin conditions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Features</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Quick and easy image upload
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Instant analysis results
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Privacy-focused design
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Multiple skin condition detection
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Privacy Policy</h2>
+                <p>We take your privacy seriously. All images uploaded to our service are processed in real-time and are not stored on our servers. The analysis is performed locally, and no personal information is collected or stored.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

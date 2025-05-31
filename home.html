@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Skin Disease Predictor{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Upload Image for Analysis</h2>
+                <form id="uploadForm" class="text-center">
+                    <div class="mb-4">
+                        <label for="imageUpload" class="form-label">Choose an image of the skin condition</label>
+                        <input type="file" class="form-control" id="imageUpload" accept="image/*" required>
+                    </div>
+                    <div id="preview" class="mb-4 text-center" style="display: none;">
+                        <img id="imagePreview" class="img-fluid rounded" style="max-height: 300px;" alt="Preview">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Analyze Image</button>
+                </form>
+                
+                <div id="results" class="mt-4" style="display: none;">
+                    <h3 class="text-center mb-3">Analysis Results</h3>
+                    <div class="list-group">
+                        <!-- Results will be inserted here -->
+                    </div>
+                </div>
+
+                <div id="loading" class="text-center mt-4" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Analyzing image...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('imageUpload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('imagePreview').src = e.target.result;
+            document.getElementById('preview').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const fileInput = document.getElementById('imageUpload');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert('Please select an image first.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Show loading spinner
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('results').style.display = 'none';
+
+    try {
+        const response = await fetch('/predict', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+
+        // Display results
+        const resultsDiv = document.getElementById('results');
+        const listGroup = resultsDiv.querySelector('.list-group');
+        listGroup.innerHTML = '';
+
+        data.predictions.forEach(prediction => {
+            const percentage = (prediction.probability * 100).toFixed(2);
+            const item = document.createElement('div');
+            item.className = 'list-group-item';
+            item.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-1">${prediction.class}</h5>
+                    <span class="badge bg-primary rounded-pill">${percentage}%</span>
+                </div>
+                <div class="progress" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: ${percentage}%"></div>
+                </div>
+            `;
+            listGroup.appendChild(item);
+        });
+
+        resultsDiv.style.display = 'block';
+    } catch (error) {
+        alert('Error analyzing image. Please try again.');
+        console.error('Error:', error);
+    } finally {
+        document.getElementById('loading').style.display = 'none';
+    }
+});
+</script>
+{% endblock %} 

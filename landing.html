@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Skin Disease Predictor{% endblock %}
+
+{% block content %}
+<div class="row align-items-center min-vh-75">
+    <div class="col-md-6">
+        <h1 class="display-4 mb-4">AI-Powered Skin Disease Detection</h1>
+        <p class="lead mb-4">
+            Get instant analysis of skin conditions using our advanced AI technology.
+            Upload your image and receive quick, preliminary assessments to help identify
+            potential skin conditions.
+        </p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a href="/home" class="btn btn-primary btn-lg px-4 me-md-2">Try it Now</a>
+            <a href="/about" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <img src="https://img.freepik.com/free-vector/dermatologist-concept-illustration_114360-6985.jpg" 
+             alt="Skin Analysis Illustration" 
+             class="img-fluid rounded shadow">
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Quick Analysis</h5>
+                <p class="card-text">Get instant preliminary assessment of skin conditions using advanced AI technology.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Easy to Use</h5>
+                <p class="card-text">Simply upload a photo and receive analysis results within seconds.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Privacy First</h5>
+                <p class="card-text">Your data is processed securely and never stored on our servers.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
